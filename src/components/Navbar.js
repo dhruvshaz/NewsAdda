@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import logo from '../favicon-32x32.png'
 
 export class Navbar extends Component {
@@ -8,7 +8,7 @@ export class Navbar extends Component {
   constructor() {
     super()
     this.state = {
-      searchValue: 'technology',
+      searchValue: 'Shimla',
     }
   }
 
@@ -23,13 +23,24 @@ export class Navbar extends Component {
     e.preventDefault();
   }
 
+  onClickEnglish = (e) => {
+    const { langChange } = this.props;
+    langChange('eng');
+    e.preventDefault();
+  }
+  onClickHindi = (e) => {
+    const { langChange } = this.props;
+    langChange('hin');
+    e.preventDefault();
+  }
+
   render() {
 
     return (
       <nav className="navbar navbar-expand-lg enhanced-navbar" data-bs-theme="dark">
         <div className="container-fluid">
 
-          <img className='mx-2 my-1 logo' src={logo} alt="Your Logo" height="30" />
+          <img className='mx-2 my-1 logo' src={logo} alt="Your Logo" />
           <button
             className="navbar-toggler"
             type="button"
@@ -55,12 +66,12 @@ export class Navbar extends Component {
               </li>
               <li className="nav-item">
                 <Link className="nav-link active" to="/entertainment">
-                  Entertainment
+                  Arts & Entertainment
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" to="/general">
-                  General
+                <Link className="nav-link active" to="/environment">
+                  Environment
                 </Link>
               </li>
               <li className="nav-item">
@@ -79,10 +90,26 @@ export class Navbar extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" to="/technology">
-                  Technology
+                <Link className="nav-link active" to="/politics">
+                  Politics
                 </Link>
               </li>
+              <li className="nav-item dropdown mx-2">
+                <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Language
+                </a>
+                <ul className="dropdown-menu">
+                  <li><li className="form-check form-check-inline custom-radio my-2 mx-3">
+                    <input className="form-check-input" type="radio" onChange={this.onClickEnglish} name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+                    <label className="form-check-label text-white" for="inlineRadio1">English</label>
+                  </li></li>
+                  <li className="form-check form-check-inline my-2 mx-3">
+                    <input className="form-check-input" type="radio" onChange={this.onClickHindi} name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+                    <label className="form-check-label text-white" for="inlineRadio2">Hindi</label>
+                  </li>
+                </ul>
+              </li>
+
             </ul>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -97,18 +124,18 @@ export class Navbar extends Component {
               </li>
             </ul>
             <Link className="nav-link active" to="/search">
-            <form className="d-flex mx-2 enhanced-search" role="search">
-              
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                required
-                value={this.state.searchValue}
-                onChange={this.newsSearchChange}
-              />
-              
+              <form className="d-flex mx-2 enhanced-search" role="search">
+
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  required
+                  value={this.state.searchValue}
+                  onChange={this.newsSearchChange}
+                />
+
                 <button
                   className="btn btn-outline-primary"
                   style={{ backgroundColor: 'blue', color: 'white', fontSize: '20px', margin: '2px' }}
@@ -119,8 +146,8 @@ export class Navbar extends Component {
                 >
                   Search
                 </button>
-              
-            </form>
+
+              </form>
             </Link>
 
           </div>

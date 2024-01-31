@@ -8,15 +8,17 @@ import defaultBanner from '../default-banner.jpg'
 export class News extends Component { 
 
         static defaultProps={
-          country  : 'in',
-          category : 'general',
+          country  : 'India',
+          category : 'Science',
           pageSize : 12,
+          lang     : 'eng'
         }
 
         static propTypes={
           country  : PropTypes.string,
           category : PropTypes.string,
           pageSize : PropTypes.number,
+          lang     : PropTypes.string,
         }
 
         constructor(props){
@@ -34,16 +36,17 @@ export class News extends Component {
       return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  async updateNews(){
-    const url=`https://newsapi.org/v2/top-headlines?&country=${this.props.country}&category=${this.props.category}&apiKey=597a9d5e409642f3ae2d49858b8cb4f0&page=${this.state.page}&pageSize=${this.props.pageSize}`
-        this.setState({loading:true})
-        let data= await fetch(url);
-        let parsedData= await data.json();
-        this.setState({
-            articles : parsedData.articles,
-            totalResults  : parsedData.totalResults,
-            loading  : false
-        })
+  updateNews=async()=>{
+    const url=`https://eventregistry.org/api/v1/article/getArticles?locationUri=http://en.wikipedia.org/wiki/${this.props.country}&categoryUri=news/${this.props.category}&lang=${this.props.lang}&articlesPage=${this.state.page}&articlesCount=${this.props.pageSize}&apiKey=b47e4da7-53d3-4f49-a8f5-348bbb7d0f49`
+    this.setState({loading:true})
+    let data= await fetch(url);
+    let parsedData= await data.json();
+    this.setState({
+        articles : parsedData.articles.results,
+        totalResults  : parsedData.totalResults,
+        loading  : false
+    })
+    console.log("api se data "+ this.state.articles.results)
   }
     
   async componentDidMount(){
@@ -70,16 +73,15 @@ export class News extends Component {
         {this.state.loading && <Spinner/> }  
 
         <div className="row my-2">
-            {!this.state.loading && this.state.articles.map((element)=>{
+            {!this.state.loading && this.state.articles && this.state.articles.map((element)=>{
                 return <div className="col-md-4 my-3" key={element.url}>
                             <Newsitem 
                                 title={element.title?element.title:"News Adda"} 
-                                description={element.description?element.description:"Please Click on Read More to view full article"} 
-                                imageUrl={element.urlToImage?element.urlToImage:defaultBanner} 
+                                description={element.body?element.body:"Please Click on Read More to view full article"} 
+                                imageUrl={element.image?element.image:defaultBanner} 
                                 newsUrl={element.url?element.url:"https://indianexpress.com"}
-                                author={!element.author?"Unknown":element.author}
-                                date={!element.publishedAt?"N/A":element.publishedAt}
-                                source={!element.source.name?"Unknown":element.source.name}
+                                date={!element.dateTimePub?"N/A":element.dateTimePub}
+                                source={!element.source.title?"Unknown":element.source.title}
                             />
                        </div>
             })}
