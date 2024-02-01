@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const About=()=>{
+export default class About extends Component {
+  render() {
     return (
       <div className="accordion accordion-flush my-3" id="accordionFlushExample">
         <div className="custom-accordion-item">
@@ -95,7 +96,5 @@ const About=()=>{
         </div>
       </div>
     )
-  
+  }
 }
-
-export default About;

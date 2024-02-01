@@ -1,69 +1,159 @@
 import './App.css';
-import React, { Component } from 'react'
-import { Navbar } from './components/Navbar';
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
 import News from './components/News';
 import About from './components/About';
 import Contact from './components/Contact';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import NewsSearch from './components/NewsSearch';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+const App = () => {
+  const pageSize = 12;
+  const apiKey = process.env.REACT_APP_NEWS_API_KEY;
+  const country = 'India';
 
+  const [inputValue, setInputValue] = useState('India');
+  const [lang, setLang] = useState('eng');
 
+  const handleChange = (val) => {
+    setInputValue(val);
+  };
 
-export default class App extends Component {
+  const handleChangeLang = (val) => {
+    setLang(val);
+  };
 
-  pageSize = 12;
-  apiKey= process.env.REACT_APP_NEWS_API_KEY
-  country = 'India';
+  return (
+    <div>
+      <Router>
+        <Navbar onSearchChange={handleChange} langChange={handleChangeLang} />
 
-  constructor() {
-    super()
-    this.state = {
-      inputValue: 'India',
-      lang :'eng'
-    }
-  }
+        <Routes>
+          <Route
+            path="/search"
+            element={
+              inputValue && (
+                <NewsSearch
+                  apiKey={apiKey}
+                  searchValue={inputValue}
+                  key="Shimla"
+                  pageSize={pageSize}
+                  lang={lang}
+                />
+              )
+            }
+          ></Route>
 
-  handleChange = (val) => {
-    this.setState({
-      inputValue: val
-    })
-  }
+          <Route
+            path="/"
+            element={
+              <News
+                apiKey={apiKey}
+                key="home"
+                pageSize={pageSize}
+                country={country}
+                category="Science"
+                lang={lang}
+              />
+            }
+          ></Route>
+          <Route
+            path="/business"
+            element={
+              <News
+                apiKey={apiKey}
+                key="business"
+                pageSize={pageSize}
+                country={country}
+                category="Business"
+                lang={lang}
+              />
+            }
+          ></Route>
+          <Route
+            path="/entertainment"
+            element={
+              <News
+                apiKey={apiKey}
+                key="entertainment"
+                pageSize={pageSize}
+                country={country}
+                category="Arts_and_Entertainment"
+                lang={lang}
+              />
+            }
+          ></Route>
+          <Route
+            path="/environment"
+            element={
+              <News
+                apiKey={apiKey}
+                key="environment"
+                pageSize={pageSize}
+                country={country}
+                category="Environment"
+                lang={lang}
+              />
+            }
+          ></Route>
+          <Route
+            path="/health"
+            element={
+              <News
+                apiKey={apiKey}
+                key="health"
+                pageSize={pageSize}
+                country={country}
+                category="Health"
+                lang={lang}
+              />
+            }
+          ></Route>
+          <Route
+            path="/science"
+            element={
+              <News
+                apiKey={apiKey}
+                key="science"
+                pageSize={pageSize}
+                country={country}
+                category="Science"
+                lang={lang}
+              />
+            }
+          ></Route>
+          <Route
+            path="/sports"
+            element={
+              <News
+                apiKey={apiKey}
+                key="sports"
+                pageSize={pageSize}
+                country={country}
+                category="Sports"
+                lang={lang}
+              />
+            }
+          ></Route>
+          <Route
+            path="/politics"
+            element={
+              <News
+                apiKey={apiKey}
+                key="politics"
+                pageSize={pageSize}
+                country={country}
+                category="Politics"
+                lang={lang}
+              />
+            }
+          ></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
+        </Routes>
+      </Router>
+    </div>
+  );
+};
 
-  handleChangeLang = (val) => {
-    this.setState({
-      lang : val
-    })
-  }
-
-
-  render() {
-
-
-    return (
-      <div>
-        <Router>
-
-          <Navbar onSearchChange={this.handleChange} langChange={this.handleChangeLang}/>
-
-          <Routes>
-
-            <Route path='/search' element={this.state.inputValue && <NewsSearch apiKey={this.apiKey} searchValue={this.state.inputValue} key='Shimla' pageSize={this.pageSize} lang = {this.state.lang}  />} > </Route>
-
-            <Route path='/' element={<News apiKey={this.apiKey} key='home' pageSize={this.pageSize} country={this.country} category='Science'  lang = {this.state.lang}  />}></Route>
-            <Route path='/business' element={<News apiKey={this.apiKey} key='business' pageSize={this.pageSize} country={this.country} category='Business'  lang = {this.state.lang}  />}> </Route>
-            <Route path='/entertainment' element={<News apiKey={this.apiKey} key='entertainment' pageSize={this.pageSize} country={this.country} category='Arts_and_Entertainment'  lang = {this.state.lang}  />}> </Route>
-            <Route path='/environment' element={<News apiKey={this.apiKey} key='environment' pageSize={this.pageSize} country={this.country} category='Environment'  lang = {this.state.lang}  />}></Route>
-            <Route path='/health' element={<News apiKey={this.apiKey} key='health' pageSize={this.pageSize} country={this.country} category='Health'  lang = {this.state.lang}  />}></Route>
-            <Route path='/science' element={<News apiKey={this.apiKey} key='science' pageSize={this.pageSize} country={this.country} category='Science'  lang = {this.state.lang}  />}> </Route>
-            <Route path='/sports' element={<News apiKey={this.apiKey} key='sports' pageSize={this.pageSize} country={this.country} category='Sports'  lang = {this.state.lang}  />}></Route>
-            <Route path='/politics' element={<News apiKey={this.apiKey} key='politics' pageSize={this.pageSize} country={this.country} category='Politics'  lang = {this.state.lang}  />}></Route>
-            <Route path='/about' element={<About />}></Route>
-            <Route path='/contact' element={<Contact />}></Route>
-          </Routes>
-
-        </Router>
-      </div>
-    )
-  }
-}
+export default App;
