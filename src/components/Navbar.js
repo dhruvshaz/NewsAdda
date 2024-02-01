@@ -8,7 +8,7 @@ export class Navbar extends Component {
   constructor() {
     super()
     this.state = {
-      searchValue: 'Shimla',
+      searchValue: 'India',
     }
   }
 
@@ -99,13 +99,13 @@ export class Navbar extends Component {
                   Language
                 </a>
                 <ul className="dropdown-menu">
-                  <li><li className="form-check form-check-inline custom-radio my-2 mx-3">
+                  <li className="form-check form-check-inline custom-radio my-2 mx-3">
                     <input className="form-check-input" type="radio" onChange={this.onClickEnglish} name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
-                    <label className="form-check-label text-white" for="inlineRadio1">English</label>
-                  </li></li>
+                    <label className="form-check-label text-white" htmlFor="inlineRadio1">English</label>
+                  </li>
                   <li className="form-check form-check-inline my-2 mx-3">
                     <input className="form-check-input" type="radio" onChange={this.onClickHindi} name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                    <label className="form-check-label text-white" for="inlineRadio2">Hindi</label>
+                    <label className="form-check-label text-white" htmlFor="inlineRadio2">Hindi</label>
                   </li>
                 </ul>
               </li>

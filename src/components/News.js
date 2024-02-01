@@ -37,7 +37,7 @@ export class News extends Component {
   }
 
   updateNews=async()=>{
-    const url=`https://eventregistry.org/api/v1/article/getArticles?locationUri=http://en.wikipedia.org/wiki/${this.props.country}&categoryUri=news/${this.props.category}&lang=${this.props.lang}&articlesPage=${this.state.page}&articlesCount=${this.props.pageSize}&apiKey=b47e4da7-53d3-4f49-a8f5-348bbb7d0f49`
+    const url=`https://eventregistry.org/api/v1/article/getArticles?locationUri=http://en.wikipedia.org/wiki/${this.props.country}&categoryUri=news/${this.props.category}&lang=${this.props.lang}&articlesPage=${this.state.page}&articlesCount=${this.props.pageSize}&apiKey=${this.props.apiKey}`
     this.setState({loading:true})
     let data= await fetch(url);
     let parsedData= await data.json();
@@ -46,7 +46,6 @@ export class News extends Component {
         totalResults  : parsedData.totalResults,
         loading  : false
     })
-    console.log("api se data "+ this.state.articles.results)
   }
     
   async componentDidMount(){

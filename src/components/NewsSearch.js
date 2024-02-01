@@ -9,7 +9,7 @@ export default class NewsSearch extends Component {
   
     static defaultProps={
         pageSize : 12,
-        searchValue : 'Shimla',
+        searchValue : 'India',
         lang       : 'eng'
       }
 
@@ -35,8 +35,7 @@ export default class NewsSearch extends Component {
       }
 
       updateNews=async()=>{
-        console.log("app se news search me "+this.props.searchValue)
-        const url=`https://eventregistry.org/api/v1/article/getArticles?keyword=${this.props.searchValue}&lang=${this.props.lang}&articlesPage=${this.state.page}&articlesCount=${this.props.pageSize}&apiKey=b47e4da7-53d3-4f49-a8f5-348bbb7d0f49`
+        const url=`https://eventregistry.org/api/v1/article/getArticles?keyword=${this.props.searchValue}&lang=${this.props.lang}&articlesPage=${this.state.page}&articlesCount=${this.props.pageSize}&apiKey=${this.props.apiKey}`
         this.setState({loading:true})
         let data= await fetch(url);
         let parsedData= await data.json();
@@ -45,7 +44,6 @@ export default class NewsSearch extends Component {
             totalResults  : parsedData.totalResults,
             loading  : false
         })
-        console.log("api se data "+ this.state.articles.results)
       }
     
       async componentDidMount(){
